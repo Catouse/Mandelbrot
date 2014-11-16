@@ -1,8 +1,6 @@
 (function(window)
 {
-    var canvas,
-
-        iMax = 1.5,
+    var iMax = 1.5,
         iMin = -1.5,
         rMax = 1.5,
         rMin = -2.5,
@@ -12,13 +10,18 @@
 
     var MandelLib = function(canvas)
     {
+        this.iMax = iMax;
+        this.iMin = iMin;
+        this.rMax = rMax;
+        this.rMin = rMin;
+
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
 
-        var width = ((iMax - iMin) * canvas.width / canvas.height);
-        var rMid = (rMax + rMin) / 2;
-        rMin = rMid - width/2;
-        rMax = rMid + width/2;
+        var width = ((this.iMax - this.iMin) * canvas.width / canvas.height);
+        var rMid = (this.rMax + this.rMin) / 2;
+        this.rMin = rMid - width/2;
+        this.rMax = rMid + width/2;
 
         this.rowData = this.ctx.createImageData(canvas.width, 1);
 
@@ -32,9 +35,9 @@
             row        : row,
             width      : this.rowData.width,
             generation : generation,
-            rMin       : rMin,
-            rMax       : rMax,
-            i          : iMax + (iMin - iMax) * row / canvas.height,
+            rMin       : this.rMin,
+            rMax       : this.rMax,
+            i          : this.iMax + (this.iMin - this.iMax) * row / this.canvas.height,
             iterMax    : iterMax,
             escape     : escape
         };
